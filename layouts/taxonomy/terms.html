@@ -10,7 +10,11 @@
     <div class="page archive">
         {{- /* Title */ -}}
         <h2 class="single-title animated pulse faster">
-            {{- .Params.Title | default (T $taxonomies) | default $taxonomies | dict "Some" | T "allSome" -}}
+            {{- if eq $taxonomies "categories" -}}
+                Bookshelf: Where I keep what I write.
+            {{- else if eq $taxonomies "tags" -}}
+                {{- .Params.Title | default (T $taxonomies) | default $taxonomies | dict "Some" | T "allSome" -}}
+            {{- end -}}
         </h2>
 
         {{- /* Categories Page */ -}}
@@ -24,7 +28,7 @@
                         <div class="card-item-wrapper">
                             <h3 class="card-item-title">
                                 <a href="{{ .RelPermalink }}">
-                                    <i class="far fa-folder fa-fw"></i>&nbsp;{{ .Page.Title }}
+                                    <i class="fas fa-book fa-fw"></i>&nbsp;{{ .Page.Title }}
                                 </a>
                             </h3>
                             {{- range first 5 $pages -}}
